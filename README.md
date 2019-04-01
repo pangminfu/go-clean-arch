@@ -12,3 +12,7 @@ Example of how to write and clean and maintainable code in Golang using Reposito
 **Reusable package** : This will only contain Service and Repository. It will export function for Main package to call. It doesn't care about what is the implementation of the Main package. 
 
 **Main package** : We can make or swop our Main package implementation to any others service provider(eg. AWS Lambda or Command Line Interface) as long as we remain how we called our Reusable package Service and pass in the required dependency.
+
+**Unit Test** : This will cover the Service part we should write all test case to cover all the function we had in Service. We can mock our Repository with InMemRepository and put in different dataset for testing.
+
+**Integration Test** : This will need to create a Dev DB(eg. Mysql or DynamoDB) for testing.

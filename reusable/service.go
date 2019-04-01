@@ -11,7 +11,7 @@ func NewService(productRepo ProductRepository) Service {
 }
 
 func (svc ProductService) Create(product *Product) (*Product, error) {
-	return nil, nil
+	return svc.ProductRepo.Create(product)
 }
 
 func (svc ProductService) ListProduct() ([]*Product, error) {

@@ -4,7 +4,7 @@ type ProductService struct {
 	ProductRepo ProductRepository
 }
 
-func New(productRepo ProductRepository) Service {
+func NewService(productRepo ProductRepository) Service {
 	return &ProductService{
 		ProductRepo: productRepo,
 	}

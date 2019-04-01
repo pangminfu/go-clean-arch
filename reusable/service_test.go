@@ -10,7 +10,7 @@ func TestCreate_ErrNil(t *testing.T) {
 		&Product{
 			Code: "A8965",
 			Name: "test",
-			Desc: "test desc",
+			Desc: "test desc positive",
 		},
 		&Product{
 			Code: "A0077",

@@ -46,7 +46,7 @@ func (svc ProductService) UpdateProduct(product *Product) (*Product, error) {
 	return svc.ProductRepo.Update(product)
 }
 
-func (svc ProductService) DeleteProduct(id string) error {
+func (svc ProductService) DeleteProduct(id int) error {
 	return svc.ProductRepo.Delete(id)
 }
 

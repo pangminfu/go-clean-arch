@@ -5,7 +5,7 @@ type Service interface {
 	ListProduct() ([]*Product, error)
 	SearchByCode(code string) (*Product, error)
 	UpdateProduct(p *Product) (*Product, error)
-	DeleteProduct(id string) error
+	DeleteProduct(id int) error
 }
 
 type ProductRepository interface {
@@ -13,5 +13,5 @@ type ProductRepository interface {
 	List() ([]*Product, error)
 	GetByCode(code string) (*Product, error)
 	Update(p *Product) (*Product, error)
-	Delete(id string) error
+	Delete(id int) error
 }

@@ -221,3 +221,75 @@ func TestIsProductCodeValid_ErrNotNil(t *testing.T) {
 		}
 	}
 }
+
+func TestSearchByCode_ErrNil(t *testing.T) {
+	p := []*Product{
+		&Product{
+			Code: "A8965",
+			Name: "test",
+			Desc: "test desc positive",
+		},
+		&Product{
+			Code: "A0077",
+			Name: "test name",
+			Desc: "test desc not too long desc",
+		},
+		&Product{
+			Code: "A112",
+			Name: "test",
+			Desc: "test desc i dont see error",
+		},
+	}
+
+	repo := NewInMemProductRepository(p)
+	svc := NewService(repo)
+
+	samples := []string{
+		"A1",
+		"B123",
+		"C123",
+	}
+
+	for i, sample := range samples {
+		_, err := svc.SearchByCode(sample)
+		if err != nil {
+			t.Errorf("Sample %d should return error nil instead of %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestSearchByCode_ErrNotNil(t *testing.T) {
+	p := []*Product{
+		&Product{
+			Code: "A8965",
+			Name: "test",
+			Desc: "test desc positive",
+		},
+		&Product{
+			Code: "A0077",
+			Name: "test name",
+			Desc: "test desc not too long desc",
+		},
+		&Product{
+			Code: "A112",
+			Name: "test",
+			Desc: "test desc i dont see error",
+		},
+	}
+
+	repo := NewInMemProductRepository(p)
+	svc := NewService(repo)
+
+	samples := []string{
+		"",
+		"123",
+		"c123",
+	}
+
+	for i, sample := range samples {
+		_, err := svc.SearchByCode(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of nil", i+1)
+		}
+	}
+}

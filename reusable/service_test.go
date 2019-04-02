@@ -93,3 +93,92 @@ func TestCreate_ErrNotNil(t *testing.T) {
 		}
 	}
 }
+
+func TestIsProductNameValid_ErrNil(t *testing.T) {
+	samples := []string{
+		"test",
+		"test row",
+		"how are you?",
+		"F&N nestle",
+	}
+	for i, sample := range samples {
+		err := isProductNameValid(sample)
+		if err != nil {
+			t.Errorf("Sample %d should not return error %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestIsProductNameValid_ErrNotNil(t *testing.T) {
+	samples := []string{
+		"",
+		"tes",
+		"h",
+	}
+	for i, sample := range samples {
+		err := isProductNameValid(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of nil", i+1)
+		}
+	}
+}
+
+func TestIsProductDescValid_ErrNil(t *testing.T) {
+	samples := []string{
+		"10 character",
+		"12345678910",
+		"how are you?",
+		"this must more than 10 character",
+	}
+	for i, sample := range samples {
+		err := isProductDescValid(sample)
+		if err != nil {
+			t.Errorf("Sample %d should not return error %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestIsProductDescValid_ErrNotNil(t *testing.T) {
+	samples := []string{
+		"1234567890",
+		"te",
+		"h",
+		"",
+	}
+	for i, sample := range samples {
+		err := isProductDescValid(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of nil", i+1)
+		}
+	}
+}
+
+func TestIsProductCodeValid_ErrNil(t *testing.T) {
+	samples := []string{
+		"A1",
+		"B123",
+		"C123",
+	}
+	for i, sample := range samples {
+		err := isProductCodeValid(sample)
+		if err != nil {
+			t.Errorf("Sample %d should not return error %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestIsProductCodeValid_ErrNotNil(t *testing.T) {
+	samples := []string{
+		"",
+		"123A",
+		"a234",
+		"Ax123",
+		"A123L",
+	}
+	for i, sample := range samples {
+		err := isProductCodeValid(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of nil", i+1)
+		}
+	}
+}

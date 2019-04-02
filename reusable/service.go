@@ -3,6 +3,7 @@ package reusable
 import (
 	"errors"
 	"regexp"
+	"strings"
 )
 
 type ProductService struct {
@@ -20,14 +21,17 @@ func (svc ProductService) Create(product *Product) (*Product, error) {
 		return nil, errors.New("Product is empty")
 	}
 
+	product.Name = strings.TrimSpace(product.Name)
 	if err := isProductNameValid(product.Name); err != nil {
 		return nil, err
 	}
 
+	product.Desc = strings.TrimSpace(product.Desc)
 	if err := isProductDescValid(product.Desc); err != nil {
 		return nil, err
 	}
 
+	product.Code = strings.TrimSpace(product.Code)
 	if err := isProductCodeValid(product.Code); err != nil {
 		return nil, err
 	}
@@ -68,7 +72,7 @@ func isProductDescValid(desc string) error {
 }
 
 func isProductCodeValid(code string) error {
-	re := regexp.MustCompile(`^[A-Z]([0-9]+)`)
+	re := regexp.MustCompile(`^[A-Z]([0-9]+)$`)
 	if re.MatchString(code) {
 		return nil
 	}

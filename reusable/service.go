@@ -17,22 +17,7 @@ func NewService(productRepo ProductRepository) Service {
 }
 
 func (svc ProductService) Create(product *Product) (*Product, error) {
-	if product == new(Product) || product == nil {
-		return nil, errors.New("Product is empty")
-	}
-
-	product.Name = strings.TrimSpace(product.Name)
-	if err := isProductNameValid(product.Name); err != nil {
-		return nil, err
-	}
-
-	product.Desc = strings.TrimSpace(product.Desc)
-	if err := isProductDescValid(product.Desc); err != nil {
-		return nil, err
-	}
-
-	product.Code = strings.TrimSpace(product.Code)
-	if err := isProductCodeValid(product.Code); err != nil {
+	if err := isProductInfoValid(product); err != nil {
 		return nil, err
 	}
 
@@ -40,18 +25,51 @@ func (svc ProductService) Create(product *Product) (*Product, error) {
 }
 
 func (svc ProductService) ListProduct() ([]*Product, error) {
-	return nil, nil
+
+	return svc.ProductRepo.List()
 }
 
 func (svc ProductService) SearchByCode(code string) (*Product, error) {
-	return nil, nil
+	code = strings.TrimSpace(code)
+	if err := isProductCodeValid(code); err != nil {
+		return nil, err
+	}
+
+	return svc.ProductRepo.GetByCode(code)
 }
 
-func (svc ProductService) UpdateProduct(p *Product) (*Product, error) {
-	return nil, nil
+func (svc ProductService) UpdateProduct(product *Product) (*Product, error) {
+	if err := isProductInfoValid(product); err != nil {
+		return nil, err
+	}
+
+	return svc.ProductRepo.Update(product)
 }
 
 func (svc ProductService) DeleteProduct(id string) error {
+	return svc.ProductRepo.Delete(id)
+}
+
+func isProductInfoValid(product *Product) error {
+	if product == new(Product) || product == nil {
+		return errors.New("Product is empty")
+	}
+
+	product.Name = strings.TrimSpace(product.Name)
+	if err := isProductNameValid(product.Name); err != nil {
+		return err
+	}
+
+	product.Desc = strings.TrimSpace(product.Desc)
+	if err := isProductDescValid(product.Desc); err != nil {
+		return err
+	}
+
+	product.Code = strings.TrimSpace(product.Code)
+	if err := isProductCodeValid(product.Code); err != nil {
+		return err
+	}
+
 	return nil
 }
 

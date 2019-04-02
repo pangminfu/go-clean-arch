@@ -94,6 +94,45 @@ func TestCreate_ErrNotNil(t *testing.T) {
 	}
 }
 
+func TestIsProductInfoValid_ErrNil(t *testing.T) {
+	samples := []*Product{
+		&Product{
+			Code: "A8965",
+			Name: "test",
+			Desc: "test desc positive",
+		},
+		&Product{
+			Code: "A0077",
+			Name: "test name",
+			Desc: "test desc not too long desc",
+		},
+		&Product{
+			Code: "A112",
+			Name: "test",
+			Desc: "test desc i dont see error",
+		},
+	}
+	for i, sample := range samples {
+		err := isProductInfoValid(sample)
+		if err != nil {
+			t.Errorf("Sample %d should not return error %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestIsProductInfoValid_ErrNotNil(t *testing.T) {
+	samples := []*Product{
+		nil,
+		&Product{},
+	}
+	for i, sample := range samples {
+		err := isProductInfoValid(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of nil", i+1)
+		}
+	}
+}
+
 func TestIsProductNameValid_ErrNil(t *testing.T) {
 	samples := []string{
 		"test",

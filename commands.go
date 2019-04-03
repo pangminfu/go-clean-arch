@@ -6,24 +6,26 @@ import (
 )
 
 func init() {
+	flags := []cli.Flag{
+		cli.StringFlag{
+			Name:  "code",
+			Usage: "product code",
+		},
+		cli.StringFlag{
+			Name:  "name",
+			Usage: "product name",
+		},
+		cli.StringFlag{
+			Name:  "desc",
+			Usage: "product description",
+		},
+	}
+
 	cmds = []cli.Command{
 		{
 			Name:  "create",
 			Usage: "create new produt",
-			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:  "code",
-					Usage: "product code",
-				},
-				cli.StringFlag{
-					Name:  "name",
-					Usage: "product name",
-				},
-				cli.StringFlag{
-					Name:  "desc",
-					Usage: "product description",
-				},
-			},
+			Flags: flags,
 			Action: func(c *cli.Context) error {
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)

@@ -24,12 +24,56 @@ func init() {
 	cmds = []cli.Command{
 		{
 			Name:  "create",
-			Usage: "create new produt",
+			Usage: "create new product",
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)
 				_, err := svc.Create(nil)
+				return err
+			},
+		},
+		{
+			Name:  "list",
+			Usage: "list all product",
+			Flags: flags,
+			Action: func(c *cli.Context) error {
+				repo := reusable.NewInMemProductRepository(nil)
+				svc := reusable.NewService(repo)
+				_, err := svc.ListProduct()
+				return err
+			},
+		},
+		{
+			Name:  "search",
+			Usage: "search product by code",
+			Flags: flags,
+			Action: func(c *cli.Context) error {
+				repo := reusable.NewInMemProductRepository(nil)
+				svc := reusable.NewService(repo)
+				_, err := svc.SearchByCode("")
+				return err
+			},
+		},
+		{
+			Name:  "update",
+			Usage: "update product",
+			Flags: flags,
+			Action: func(c *cli.Context) error {
+				repo := reusable.NewInMemProductRepository(nil)
+				svc := reusable.NewService(repo)
+				_, err := svc.UpdateProduct(nil)
+				return err
+			},
+		},
+		{
+			Name:  "delete",
+			Usage: "delete product",
+			Flags: flags,
+			Action: func(c *cli.Context) error {
+				repo := reusable.NewInMemProductRepository(nil)
+				svc := reusable.NewService(repo)
+				err := svc.DeleteProduct(0)
 				return err
 			},
 		},

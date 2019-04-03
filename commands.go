@@ -1,6 +1,9 @@
 package main
 
-import "github.com/urfave/cli"
+import (
+	"github.com/pangminfu/go-clean-arch/reusable"
+	"github.com/urfave/cli"
+)
 
 func init() {
 	cmds = []cli.Command{
@@ -9,32 +12,24 @@ func init() {
 			Usage: "create new produt",
 			Flags: []cli.Flag{
 				cli.StringFlag{
-					Name:  "pub",
-					Usage: "publication code",
+					Name:  "code",
+					Usage: "product code",
 				},
 				cli.StringFlag{
-					Name:  "host",
-					Usage: "FTP host name",
+					Name:  "name",
+					Usage: "product name",
 				},
 				cli.StringFlag{
-					Name:  "user",
-					Usage: "FTP username",
-				},
-				cli.StringFlag{
-					Name:  "pass",
-					Usage: "FTP password",
-				},
-				cli.StringFlag{
-					Name:  "port",
-					Value: "21",
-					Usage: "FTP port number default is 21",
-				},
-				cli.StringFlag{
-					Name:  "directory, dir",
-					Usage: "FTP directory to sync",
+					Name:  "desc",
+					Usage: "product description",
 				},
 			},
-			// Action: epapersyncCLI,
+			Action: func(c *cli.Context) error {
+				repo := reusable.NewInMemProductRepository(nil)
+				svc := reusable.NewService(repo)
+				_, err := svc.Create(nil)
+				return err
+			},
 		},
 	}
 }

@@ -36,7 +36,7 @@ func (repo InMemProductRepository) Update(p *Product) (*Product, error) {
 		}
 	}
 
-	return nil, nil
+	return nil, errors.New("Id not found")
 }
 
 func (repo InMemProductRepository) Delete(id int) error {

@@ -138,7 +138,10 @@ func init() {
 					return err
 				}
 				log.Printf("deleted")
-				log.Printf("product remain : %+v", DATA)
+				log.Printf("product remain :")
+				for i, p := range DATA {
+					log.Printf("%d : %+v", i+1, p)
+				}
 				return nil
 			},
 		},

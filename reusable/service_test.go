@@ -94,6 +94,106 @@ func TestCreate_ErrNotNil(t *testing.T) {
 	}
 }
 
+func TestUpdateProduct_ErrNil(t *testing.T) {
+	repo := NewInMemProductRepository(InMemProducts)
+	svc := NewService(repo)
+
+	samples := []*Product{
+		&Product{
+			Id:   1,
+			Code: "A8965",
+			Name: "test",
+			Desc: "test desc positive",
+		},
+		&Product{
+			Id:   2,
+			Code: "A0077",
+			Name: "test name",
+			Desc: "test desc not too long desc",
+		},
+		&Product{
+			Id:   3,
+			Code: "A112",
+			Name: "test",
+			Desc: "test desc i dont see error",
+		},
+	}
+
+	for i, sample := range samples {
+		_, err := svc.UpdateProduct(sample)
+		if err != nil {
+			t.Errorf("Sample %d should return error nil instead of %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestUpdateProduct_ErrNotNil(t *testing.T) {
+	repo := NewInMemProductRepository(InMemProducts)
+	svc := NewService(repo)
+
+	samples := []*Product{
+		nil,
+		&Product{},
+		&Product{
+			Code: "",
+			Name: "",
+			Desc: "",
+		},
+		&Product{
+			Code: "8965",
+			Name: "test",
+			Desc: "test desc",
+		},
+		&Product{
+			Code: "A0077",
+			Name: "",
+			Desc: "test desc not too long desc",
+		},
+		&Product{
+			Code: "A112",
+			Name: "test",
+			Desc: "",
+		},
+		&Product{
+			Code: "112A",
+			Name: "test",
+			Desc: "",
+		},
+		&Product{
+			Code: "112",
+			Name: "test",
+			Desc: "test desc",
+		},
+		&Product{
+			Code: "A112",
+			Name: "te",
+			Desc: "test desc",
+		},
+		&Product{
+			Code: "A112",
+			Name: "test",
+			Desc: "te",
+		},
+		&Product{
+			Code: "a112",
+			Name: "test",
+			Desc: "test desc i dont see error",
+		},
+		&Product{
+			Code: "A8965",
+			Name: "test",
+			Desc: "test desc positive",
+		},
+	}
+
+	for i, sample := range samples {
+		_, err := svc.UpdateProduct(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of error nil", i+1)
+		}
+	}
+}
+
 func TestIsProductInfoValid_ErrNil(t *testing.T) {
 	samples := []*Product{
 		&Product{

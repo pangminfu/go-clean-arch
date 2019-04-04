@@ -61,7 +61,7 @@ func init() {
 				if err != nil {
 					return err
 				}
-				log.Printf("created : %s", *created)
+				log.Printf("created : %+v", *created)
 				return nil
 			},
 		},
@@ -76,7 +76,9 @@ func init() {
 				if err != nil {
 					return err
 				}
-				log.Printf("list : %s", list)
+				for i, p := range list {
+					log.Printf("%d : %+v", i+1, p)
+				}
 				return nil
 			},
 		},
@@ -97,7 +99,7 @@ func init() {
 				if err != nil {
 					return err
 				}
-				log.Printf("result : %s", result)
+				log.Printf("result : %+v", result)
 				return nil
 			},
 		},
@@ -114,7 +116,7 @@ func init() {
 				if err != nil {
 					return err
 				}
-				log.Printf("updated : %s", updated)
+				log.Printf("updated : %+v", updated)
 				return nil
 			},
 		},
@@ -136,7 +138,7 @@ func init() {
 					return err
 				}
 				log.Printf("deleted")
-				log.Printf("product remain : %s", DATA)
+				log.Printf("product remain : %+v", DATA)
 				return nil
 			},
 		},

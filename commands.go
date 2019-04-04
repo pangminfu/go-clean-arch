@@ -23,6 +23,11 @@ var DATA = []*reusable.Product{
 }
 
 func init() {
+	//initialize db connection
+	// db, err := reusable.ConnectMysql(username, password, host, dbname)
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
 	flags := []cli.Flag{
 		cli.IntFlag{
 			Name:  "id",

@@ -89,7 +89,23 @@ func (repo MySqlProductRepository) GetByCode(code string) (*Product, error) {
 }
 
 func (repo MySqlProductRepository) Update(p *Product) (*Product, error) {
-	return nil, nil
+	preStatement, err := repo.database.Prepare("UPDATE product SET code = ?, name = ?, desc = ? WHERE id = ?")
+	if err != nil {
+		return nil, err
+	}
+	defer preStatement.Close()
+
+	result, err := preStatement.Exec(p.Code, p.Name, p.Desc, p.Id)
+	if err != nil {
+		return nil, err
+	}
+	id, err := result.RowsAffected()
+	if err != nil {
+		return nil, err
+	}
+	p.Id = int(id)
+
+	return p, nil
 }
 
 func (repo MySqlProductRepository) Delete(id int) error {

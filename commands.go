@@ -49,7 +49,8 @@ func init() {
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				p := handleArgs(c)
-				repo := reusable.NewInMemProductRepository(DATA)
+				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
+				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
 				svc := reusable.NewService(repo)
 				created, err := svc.Create(p)
 				if err != nil {
@@ -63,7 +64,8 @@ func init() {
 			Name:  "list",
 			Usage: "list all product",
 			Action: func(c *cli.Context) error {
-				repo := reusable.NewInMemProductRepository(DATA)
+				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
+				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
 				svc := reusable.NewService(repo)
 				list, err := svc.ListProduct()
 				if err != nil {
@@ -83,7 +85,8 @@ func init() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				repo := reusable.NewInMemProductRepository(DATA)
+				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
+				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
 				svc := reusable.NewService(repo)
 				result, err := svc.SearchByCode(c.String("code"))
 				if err != nil {
@@ -99,7 +102,8 @@ func init() {
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				p := handleArgs(c)
-				repo := reusable.NewInMemProductRepository(DATA)
+				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
+				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
 				svc := reusable.NewService(repo)
 				updated, err := svc.UpdateProduct(p)
 				if err != nil {
@@ -119,7 +123,8 @@ func init() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				repo := reusable.NewInMemProductRepository(DATA)
+				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
+				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
 				svc := reusable.NewService(repo)
 				err := svc.DeleteProduct(c.Int("id"))
 				if err != nil {

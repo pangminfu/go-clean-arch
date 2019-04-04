@@ -15,7 +15,23 @@ func NewMySqlProductRepository(db *sql.DB) ProductRepository {
 }
 
 func (repo MySqlProductRepository) Create(p *Product) (*Product, error) {
-	return nil, nil
+	preStatement, err := repo.database.Prepare("INSERT INTO product (code, name, desc) VALUES (?, ?, ?)")
+	if err != nil {
+		return nil, err
+	}
+	defer preStatement.Close()
+
+	result, err := preStatement.Exec(p.Code, p.Name, p.Desc)
+	if err != nil {
+		return nil, err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return nil, err
+	}
+	p.Id = int(id)
+
+	return p, nil
 }
 
 func (repo MySqlProductRepository) List() ([]*Product, error) {

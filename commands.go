@@ -1,9 +1,26 @@
 package main
 
 import (
+	"log"
+
 	"github.com/pangminfu/go-clean-arch/reusable"
 	"github.com/urfave/cli"
 )
+
+var DATA = []*reusable.Product{
+	&reusable.Product{
+		Id:   1,
+		Name: "testname1",
+		Code: "A123",
+		Desc: "i am first product",
+	},
+	&reusable.Product{
+		Id:   2,
+		Name: "testname2",
+		Code: "A222",
+		Desc: "i am second product",
+	},
+}
 
 func init() {
 	flags := []cli.Flag{
@@ -32,9 +49,10 @@ func init() {
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				p := handleArgs(c)
-				repo := reusable.NewInMemProductRepository(nil)
+				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
-				_, err := svc.Create(p)
+				created, err := svc.Create(p)
+				log.Printf("created : %s", *created)
 				return err
 			},
 		},
@@ -42,9 +60,10 @@ func init() {
 			Name:  "list",
 			Usage: "list all product",
 			Action: func(c *cli.Context) error {
-				repo := reusable.NewInMemProductRepository(nil)
+				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
-				_, err := svc.ListProduct()
+				list, err := svc.ListProduct()
+				log.Printf("list : %s", list)
 				return err
 			},
 		},
@@ -58,9 +77,10 @@ func init() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				repo := reusable.NewInMemProductRepository(nil)
+				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
-				_, err := svc.SearchByCode(c.String("code"))
+				result, err := svc.SearchByCode(c.String("code"))
+				log.Printf("result : %s", result)
 				return err
 			},
 		},
@@ -70,9 +90,10 @@ func init() {
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				p := handleArgs(c)
-				repo := reusable.NewInMemProductRepository(nil)
+				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
-				_, err := svc.UpdateProduct(p)
+				updated, err := svc.UpdateProduct(p)
+				log.Printf("updated : %s", updated)
 				return err
 			},
 		},
@@ -86,9 +107,11 @@ func init() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				repo := reusable.NewInMemProductRepository(nil)
+				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
 				err := svc.DeleteProduct(c.Int("id"))
+				log.Printf("deleted")
+				log.Printf("product remain : %s", DATA)
 				return err
 			},
 		},

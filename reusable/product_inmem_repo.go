@@ -42,10 +42,17 @@ func (repo InMemProductRepository) Update(p *Product) (*Product, error) {
 func (repo InMemProductRepository) Delete(id int) error {
 	for i, product := range repo.Products {
 		if product.Id == id {
-			repo.Products[i] = repo.Products[len(repo.Products)-1]
-			repo.Products = repo.Products[:len(repo.Products)-1]
+			repo.Products = remove(repo.Products, i)
 			return nil
 		}
 	}
 	return errors.New("Id not found")
+}
+
+func remove(s []*Product, i int) []*Product {
+	copy(s[i:], s[i+1:])
+	s[len(s)-1] = nil
+	s = s[:len(s)-1]
+
+	return s
 }

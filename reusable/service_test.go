@@ -357,3 +357,39 @@ func TestSearchByCode_ErrNotNil(t *testing.T) {
 		}
 	}
 }
+
+func TestDeleteProduct_ErrNil(t *testing.T) {
+	repo := NewInMemProductRepository(InMemProducts)
+	svc := NewService(repo)
+
+	samples := []int{
+		1,
+		2,
+		3,
+	}
+
+	for i, sample := range samples {
+		err := svc.DeleteProduct(sample)
+		if err != nil {
+			t.Errorf("Sample %d should return error nil instead of %s", i+1, err.Error())
+		}
+	}
+}
+
+func TestDeleteProduct_ErrNotNil(t *testing.T) {
+	repo := NewInMemProductRepository(InMemProducts)
+	svc := NewService(repo)
+
+	samples := []int{
+		0,
+		5,
+		100,
+	}
+
+	for i, sample := range samples {
+		err := svc.DeleteProduct(sample)
+		if err == nil {
+			t.Errorf("Sample %d should return error instead of nil", i+1)
+		}
+	}
+}

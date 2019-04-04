@@ -77,5 +77,16 @@ func (repo MySqlProductRepository) Update(p *Product) (*Product, error) {
 }
 
 func (repo MySqlProductRepository) Delete(id int) error {
+	preStatement, err := repo.database.Prepare("DELETE FROM product WHERE id=?")
+	if err != nil {
+		return err
+	}
+	defer preStatement.Close()
+
+	_, err = preStatement.Exec(id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

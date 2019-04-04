@@ -1,5 +1,10 @@
-# go-clean-arch
+# Golang Clean Architecture
 Example of how to write and clean and maintainable code in Golang using Repository pattern. 
+
+# Tech Involved
+1. Repository Pattern
+2. Dependency Injection
+3. Unit Test
 
 # Overview
 

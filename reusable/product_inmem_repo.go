@@ -62,6 +62,9 @@ func (repo InMemProductRepository) Update(p *Product) (*Product, error) {
 
 func (repo InMemProductRepository) Delete(id int) error {
 	for i, product := range repo.Products {
+		if product == nil {
+			continue
+		}
 		if product.Id == id {
 			repo.Products = remove(repo.Products, i)
 			return nil

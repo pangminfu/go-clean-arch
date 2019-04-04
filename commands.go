@@ -52,8 +52,11 @@ func init() {
 				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
 				created, err := svc.Create(p)
+				if err != nil {
+					return err
+				}
 				log.Printf("created : %s", *created)
-				return err
+				return nil
 			},
 		},
 		{
@@ -63,8 +66,11 @@ func init() {
 				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
 				list, err := svc.ListProduct()
+				if err != nil {
+					return err
+				}
 				log.Printf("list : %s", list)
-				return err
+				return nil
 			},
 		},
 		{
@@ -80,8 +86,11 @@ func init() {
 				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
 				result, err := svc.SearchByCode(c.String("code"))
+				if err != nil {
+					return err
+				}
 				log.Printf("result : %s", result)
-				return err
+				return nil
 			},
 		},
 		{
@@ -93,8 +102,11 @@ func init() {
 				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
 				updated, err := svc.UpdateProduct(p)
+				if err != nil {
+					return err
+				}
 				log.Printf("updated : %s", updated)
-				return err
+				return nil
 			},
 		},
 		{
@@ -110,9 +122,12 @@ func init() {
 				repo := reusable.NewInMemProductRepository(DATA)
 				svc := reusable.NewService(repo)
 				err := svc.DeleteProduct(c.Int("id"))
+				if err != nil {
+					return err
+				}
 				log.Printf("deleted")
 				log.Printf("product remain : %s", DATA)
-				return err
+				return nil
 			},
 		},
 	}

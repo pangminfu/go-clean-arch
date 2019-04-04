@@ -2,6 +2,27 @@ package reusable
 
 import "errors"
 
+var InMemProducts = []*Product{
+	&Product{
+		Id:   1,
+		Code: "A8965",
+		Name: "test",
+		Desc: "test desc positive",
+	},
+	&Product{
+		Id:   2,
+		Code: "A0077",
+		Name: "test name",
+		Desc: "test desc not too long desc",
+	},
+	&Product{
+		Id:   3,
+		Code: "A112",
+		Name: "test",
+		Desc: "test desc i dont see error",
+	},
+}
+
 type InMemProductRepository struct {
 	Products []*Product
 }

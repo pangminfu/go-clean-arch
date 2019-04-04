@@ -323,25 +323,7 @@ func TestIsProductCodeValid_ErrNotNil(t *testing.T) {
 }
 
 func TestSearchByCode_ErrNil(t *testing.T) {
-	p := []*Product{
-		&Product{
-			Code: "A8965",
-			Name: "test",
-			Desc: "test desc positive",
-		},
-		&Product{
-			Code: "A0077",
-			Name: "test name",
-			Desc: "test desc not too long desc",
-		},
-		&Product{
-			Code: "A112",
-			Name: "test",
-			Desc: "test desc i dont see error",
-		},
-	}
-
-	repo := NewInMemProductRepository(p)
+	repo := NewInMemProductRepository(InMemProducts)
 	svc := NewService(repo)
 
 	samples := []string{
@@ -359,25 +341,7 @@ func TestSearchByCode_ErrNil(t *testing.T) {
 }
 
 func TestSearchByCode_ErrNotNil(t *testing.T) {
-	p := []*Product{
-		&Product{
-			Code: "A8965",
-			Name: "test",
-			Desc: "test desc positive",
-		},
-		&Product{
-			Code: "A0077",
-			Name: "test name",
-			Desc: "test desc not too long desc",
-		},
-		&Product{
-			Code: "A112",
-			Name: "test",
-			Desc: "test desc i dont see error",
-		},
-	}
-
-	repo := NewInMemProductRepository(p)
+	repo := NewInMemProductRepository(InMemProducts)
 	svc := NewService(repo)
 
 	samples := []string{

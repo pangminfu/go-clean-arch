@@ -2,6 +2,7 @@ package reusable
 
 import (
 	"database/sql"
+	"fmt"
 )
 
 type MySqlProductRepository struct {
@@ -12,6 +13,20 @@ func NewMySqlProductRepository(db *sql.DB) ProductRepository {
 	return &MySqlProductRepository{
 		database: db,
 	}
+}
+
+func ConnectMysql(u, p, h, dbname string) (*sql.DB, error) {
+	dnsStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?timeout=10s",
+		u, p, h, dbname,
+	)
+
+	// Use db to perform SQL operations on database
+	db, err := sql.Open("mysql", dnsStr)
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
 }
 
 func (repo MySqlProductRepository) Create(p *Product) (*Product, error) {

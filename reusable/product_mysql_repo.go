@@ -46,7 +46,30 @@ func (repo MySqlProductRepository) List() ([]*Product, error) {
 }
 
 func (repo MySqlProductRepository) GetByCode(code string) (*Product, error) {
-	return nil, nil
+	preStatement, err := repo.database.Prepare("SELECT id, code, name, desc, mtime FROM product WHERE code=?")
+	if err != nil {
+		return nil, err
+	}
+	defer preStatement.Close()
+
+	resultList, err := preStatement.Query(code)
+	if err != nil {
+		return nil, err
+	}
+	defer resultList.Close()
+
+	products := []*Product{}
+	for resultList.Next() {
+		var p Product
+		err := resultList.Scan(&p.Id, &p.Code, &p.Name, &p.Desc)
+		if err != nil {
+			return nil, err
+		}
+
+		products = append(products, &p)
+	}
+
+	return products[0], nil
 }
 
 func (repo MySqlProductRepository) Update(p *Product) (*Product, error) {

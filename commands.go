@@ -7,6 +7,10 @@ import (
 
 func init() {
 	flags := []cli.Flag{
+		cli.IntFlag{
+			Name:  "id",
+			Usage: "product id",
+		},
 		cli.StringFlag{
 			Name:  "code",
 			Usage: "product code",
@@ -27,16 +31,16 @@ func init() {
 			Usage: "create new product",
 			Flags: flags,
 			Action: func(c *cli.Context) error {
+				p := handleArgs(c)
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)
-				_, err := svc.Create(nil)
+				_, err := svc.Create(p)
 				return err
 			},
 		},
 		{
 			Name:  "list",
 			Usage: "list all product",
-			Flags: flags,
 			Action: func(c *cli.Context) error {
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)
@@ -47,11 +51,16 @@ func init() {
 		{
 			Name:  "search",
 			Usage: "search product by code",
-			Flags: flags,
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "code",
+					Usage: "product code",
+				},
+			},
 			Action: func(c *cli.Context) error {
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)
-				_, err := svc.SearchByCode("")
+				_, err := svc.SearchByCode(c.String("code"))
 				return err
 			},
 		},
@@ -60,22 +69,39 @@ func init() {
 			Usage: "update product",
 			Flags: flags,
 			Action: func(c *cli.Context) error {
+				p := handleArgs(c)
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)
-				_, err := svc.UpdateProduct(nil)
+				_, err := svc.UpdateProduct(p)
 				return err
 			},
 		},
 		{
 			Name:  "delete",
 			Usage: "delete product",
-			Flags: flags,
+			Flags: []cli.Flag{
+				cli.IntFlag{
+					Name:  "id",
+					Usage: "product id",
+				},
+			},
 			Action: func(c *cli.Context) error {
 				repo := reusable.NewInMemProductRepository(nil)
 				svc := reusable.NewService(repo)
-				err := svc.DeleteProduct(0)
+				err := svc.DeleteProduct(c.Int("id"))
 				return err
 			},
 		},
 	}
+}
+
+func handleArgs(c *cli.Context) *reusable.Product {
+	product := &reusable.Product{
+		Id:   c.Int("id"),
+		Code: c.String("code"),
+		Name: c.String("name"),
+		Desc: c.String("desc"),
+	}
+
+	return product
 }

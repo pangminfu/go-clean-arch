@@ -2,29 +2,22 @@ package main
 
 import (
 	"log"
-	"os"
 
-	"github.com/urfave/cli"
+	"github.com/pangminfu/go-clean-arch/internal/router"
+	"github.com/pangminfu/go-clean-arch/pkg/server"
 )
 
-var cmds []cli.Command
-
 func main() {
-	app := cli.NewApp()
-	app.Name = "GO Clean Architecture Demo CLI App"
-	app.Usage = "Demo CLI tool"
-	app.Version = "1.0.0"
-	app.Authors = []cli.Author{
-		cli.Author{
-			Name: "pangminfu",
-		},
-	}
-	app.Commands = cmds
-
-	err := app.Run(os.Args)
+	router, err := router.Init()
 	if err != nil {
+		log.Println(err)
+	}
+
+	server := server.Init(":8080", router)
+
+	if err := server.Start(); err != nil {
 		log.Fatal(err)
 	}
 
-	return
+	log.Println("server shutdown")
 }

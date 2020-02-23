@@ -16,20 +16,20 @@ func New(repo product.Repository) product.Usecase {
 	}
 }
 
-func (uc *useCaseImpl) Add(p *product.Product) (*product.Product, error) {
-	return nil, errors.New("no implementation")
+func (uc *useCaseImpl) Add(p product.Product) (product.Product, error) {
+	return product.Product{}, errors.New("no implementation")
 }
 
 func (uc *useCaseImpl) Products() ([]product.Product, error) {
 	return nil, errors.New("no implementation")
 }
 
-func (uc *useCaseImpl) Search(code string) (*product.Product, error) {
-	return nil, errors.New("no implementation")
+func (uc *useCaseImpl) Search(code string) (product.Product, error) {
+	return product.Product{}, errors.New("no implementation")
 }
 
-func (uc *useCaseImpl) Update(p *product.Product) (*product.Product, error) {
-	return nil, errors.New("no implementation")
+func (uc *useCaseImpl) Update(p product.Product) (product.Product, error) {
+	return product.Product{}, errors.New("no implementation")
 }
 
 func (uc *useCaseImpl) Delete(id int) error {

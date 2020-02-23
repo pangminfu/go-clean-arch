@@ -3,18 +3,18 @@ package main
 import (
 	"log"
 
-	"github.com/pangminfu/go-clean-arch/reusable"
+	"github.com/pangminfu/go-clean-arch/pkg/product"
 	"github.com/urfave/cli"
 )
 
-var DATA = []*reusable.Product{
-	&reusable.Product{
+var DATA = []*product.Product{
+	&product.Product{
 		Id:   1,
 		Name: "testname1",
 		Code: "A123",
 		Desc: "i am first product",
 	},
-	&reusable.Product{
+	&product.Product{
 		Id:   2,
 		Name: "testname2",
 		Code: "A222",
@@ -24,7 +24,7 @@ var DATA = []*reusable.Product{
 
 func init() {
 	//initialize db connection
-	// db, err := reusable.ConnectMysql(username, password, host, dbname)
+	// db, err := product.ConnectMysql(username, password, host, dbname)
 	// if err != nil {
 	// 	log.Fatal(err.Error())
 	// }
@@ -54,9 +54,9 @@ func init() {
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				p := handleArgs(c)
-				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
-				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
-				svc := reusable.NewService(repo)
+				//can replace with product.NewMySqlProductRepository(db) after db connection is establish
+				repo := product.NewInMemProductRepository(DATA) //repo := product.NewMySqlProductRepository(db)
+				svc := product.NewService(repo)
 				created, err := svc.Create(p)
 				if err != nil {
 					return err
@@ -69,9 +69,9 @@ func init() {
 			Name:  "list",
 			Usage: "list all product",
 			Action: func(c *cli.Context) error {
-				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
-				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
-				svc := reusable.NewService(repo)
+				//can replace with product.NewMySqlProductRepository(db) after db connection is establish
+				repo := product.NewInMemProductRepository(DATA) //repo := product.NewMySqlProductRepository(db)
+				svc := product.NewService(repo)
 				list, err := svc.ListProduct()
 				if err != nil {
 					return err
@@ -92,9 +92,9 @@ func init() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
-				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
-				svc := reusable.NewService(repo)
+				//can replace with product.NewMySqlProductRepository(db) after db connection is establish
+				repo := product.NewInMemProductRepository(DATA) //repo := product.NewMySqlProductRepository(db)
+				svc := product.NewService(repo)
 				result, err := svc.SearchByCode(c.String("code"))
 				if err != nil {
 					return err
@@ -109,9 +109,9 @@ func init() {
 			Flags: flags,
 			Action: func(c *cli.Context) error {
 				p := handleArgs(c)
-				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
-				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
-				svc := reusable.NewService(repo)
+				//can replace with product.NewMySqlProductRepository(db) after db connection is establish
+				repo := product.NewInMemProductRepository(DATA) //repo := product.NewMySqlProductRepository(db)
+				svc := product.NewService(repo)
 				updated, err := svc.UpdateProduct(p)
 				if err != nil {
 					return err
@@ -130,9 +130,9 @@ func init() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				//can replace with reusable.NewMySqlProductRepository(db) after db connection is establish
-				repo := reusable.NewInMemProductRepository(DATA) //repo := reusable.NewMySqlProductRepository(db)
-				svc := reusable.NewService(repo)
+				//can replace with product.NewMySqlProductRepository(db) after db connection is establish
+				repo := product.NewInMemProductRepository(DATA) //repo := product.NewMySqlProductRepository(db)
+				svc := product.NewService(repo)
 				err := svc.DeleteProduct(c.Int("id"))
 				if err != nil {
 					return err
@@ -148,8 +148,8 @@ func init() {
 	}
 }
 
-func handleArgs(c *cli.Context) *reusable.Product {
-	product := &reusable.Product{
+func handleArgs(c *cli.Context) *product.Product {
+	product := &product.Product{
 		Id:   c.Int("id"),
 		Code: c.String("code"),
 		Name: c.String("name"),

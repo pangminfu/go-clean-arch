@@ -11,20 +11,18 @@ type Repository struct {
 }
 
 // Add provides a mock function with given fields: p
-func (_m *Repository) Add(p *product.Product) (*product.Product, error) {
+func (_m *Repository) Add(p product.Product) (product.Product, error) {
 	ret := _m.Called(p)
 
-	var r0 *product.Product
-	if rf, ok := ret.Get(0).(func(*product.Product) *product.Product); ok {
+	var r0 product.Product
+	if rf, ok := ret.Get(0).(func(product.Product) product.Product); ok {
 		r0 = rf(p)
 	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*product.Product)
-		}
+		r0 = ret.Get(0).(product.Product)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*product.Product) error); ok {
+	if rf, ok := ret.Get(1).(func(product.Product) error); ok {
 		r1 = rf(p)
 	} else {
 		r1 = ret.Error(1)
@@ -71,16 +69,14 @@ func (_m *Repository) Products() ([]product.Product, error) {
 }
 
 // Search provides a mock function with given fields: code
-func (_m *Repository) Search(code string) (*product.Product, error) {
+func (_m *Repository) Search(code string) (product.Product, error) {
 	ret := _m.Called(code)
 
-	var r0 *product.Product
-	if rf, ok := ret.Get(0).(func(string) *product.Product); ok {
+	var r0 product.Product
+	if rf, ok := ret.Get(0).(func(string) product.Product); ok {
 		r0 = rf(code)
 	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*product.Product)
-		}
+		r0 = ret.Get(0).(product.Product)
 	}
 
 	var r1 error
@@ -94,20 +90,18 @@ func (_m *Repository) Search(code string) (*product.Product, error) {
 }
 
 // Update provides a mock function with given fields: p
-func (_m *Repository) Update(p *product.Product) (*product.Product, error) {
+func (_m *Repository) Update(p product.Product) (product.Product, error) {
 	ret := _m.Called(p)
 
-	var r0 *product.Product
-	if rf, ok := ret.Get(0).(func(*product.Product) *product.Product); ok {
+	var r0 product.Product
+	if rf, ok := ret.Get(0).(func(product.Product) product.Product); ok {
 		r0 = rf(p)
 	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*product.Product)
-		}
+		r0 = ret.Get(0).(product.Product)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*product.Product) error); ok {
+	if rf, ok := ret.Get(1).(func(product.Product) error); ok {
 		r1 = rf(p)
 	} else {
 		r1 = ret.Error(1)

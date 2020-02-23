@@ -17,7 +17,14 @@ func New(repo product.Repository) product.Usecase {
 }
 
 func (uc *useCaseImpl) Add(p product.Product) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	var result product.Product
+
+	result, err := uc.repo.Add(p)
+	if err != nil {
+		return result, err
+	}
+
+	return result, nil
 }
 
 func (uc *useCaseImpl) Products() ([]product.Product, error) {

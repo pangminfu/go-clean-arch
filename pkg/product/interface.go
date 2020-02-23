@@ -1,4 +1,4 @@
-package reusable
+package product
 
 type Service interface {
 	Create(p *Product) (*Product, error)

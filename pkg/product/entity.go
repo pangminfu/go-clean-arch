@@ -1,4 +1,4 @@
-package reusable
+package product
 
 type Product struct {
 	Id   int

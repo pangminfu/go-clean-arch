@@ -1,4 +1,4 @@
-package reusable
+package product
 
 import (
 	"database/sql"

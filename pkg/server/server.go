@@ -41,7 +41,7 @@ func (s *Server) Start() error {
 	defer cancel()
 
 	if err := s.Shutdown(ctx); err != nil {
-		return fmt.Errorf("server shutdown error:", err)
+		return fmt.Errorf("server shutdown error: %s", err.Error())
 	}
 
 	return nil

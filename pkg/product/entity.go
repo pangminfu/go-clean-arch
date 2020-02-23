@@ -6,10 +6,10 @@ import (
 )
 
 type Product struct {
-	ID   int
-	Code string
-	Name string
-	Desc string
+	ID   int    `json:"id"`
+	Code string `json:"code"`
+	Name string `json:"name"`
+	Desc string `json:"desc"`
 }
 
 func (p Product) IsCodeValid() error {

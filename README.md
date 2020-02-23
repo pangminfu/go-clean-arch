@@ -1,12 +1,16 @@
-# Golang Clean Architecture
-Example of how to write and clean and maintainable code in Golang using Repository pattern. 
+# Go Clean Architecture
+Example of how to write and clean and maintainable code in Go.
+
+**Note** : Currently I'm on-going updating this example to include CI/CD pipeline, Docker, mysql and other technology to share what are the best practises that I had learn so far.
 
 # Tech Involved
 1. Repository Pattern
 2. Dependency Injection
-3. Unit Test
+3. Unit Test with mock (using [testify/mock](https://github.com/stretchr/testify) and [mockery](https://github.com/vektra/mockery))
+4. Go standard project layout (refer [here](https://github.com/golang-standards/project-layout))
+5. Github Actions
 
-# Overview
+# Overview (will be update to reflect new changes)
 
 ![Image of Diagram](https://github.com/pangminfu/go-clean-arch/blob/master/overview.jpg)
 

@@ -17,11 +17,13 @@ func New(db []product.Product) product.Repository {
 }
 
 func (r *inMemRepository) Add(p product.Product) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	r.db = append(r.db, p)
+
+	return p, nil
 }
 
 func (r *inMemRepository) Products() ([]product.Product, error) {
-	return nil, errors.New("no implementation")
+	return r.db, nil
 }
 func (r *inMemRepository) Search(code string) (product.Product, error) {
 	return product.Product{}, errors.New("no implementation")

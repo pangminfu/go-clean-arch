@@ -28,7 +28,7 @@ func (uc *useCaseImpl) Add(p product.Product) (product.Product, error) {
 }
 
 func (uc *useCaseImpl) Products() ([]product.Product, error) {
-	return nil, errors.New("no implementation")
+	return uc.repo.Products()
 }
 
 func (uc *useCaseImpl) Search(code string) (product.Product, error) {

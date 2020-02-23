@@ -21,11 +21,19 @@ func TestAdd(t *testing.T) {
 	}{
 		{
 			name:        "Given valid product product detail",
-			product:     testdata.ValidProduct,
-			repoRes:     testdata.ValidProduct,
+			product:     testdata.ProductValid,
+			repoRes:     testdata.ProductValid,
 			repoErr:     nil,
-			expectedRes: testdata.ValidProduct,
+			expectedRes: testdata.ProductValid,
 			expectedErr: nil,
+		},
+		{
+			name:        "Given repo return error",
+			product:     testdata.ProductValid,
+			repoRes:     testdata.ProductZeroValue,
+			repoErr:     testdata.RepoErr,
+			expectedRes: testdata.ProductZeroValue,
+			expectedErr: testdata.RepoErr,
 		},
 	}
 

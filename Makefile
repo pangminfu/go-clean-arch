@@ -7,4 +7,4 @@ test:
 	@go test ./... || exit 1
 
 build:
-	@docker build -f build/package/Dockerfile -t go-clean-arch .
+	@docker build -f build/package/go/Dockerfile -t go-clean-arch .

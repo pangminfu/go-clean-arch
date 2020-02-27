@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -10,6 +11,10 @@ import (
 
 type MySQLRepository struct {
 	db *gorm.DB
+}
+
+func ConnectMySQL(user, password, host, port, database string) (*gorm.DB, error) {
+	return gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?timeout=15s&parseTime=true", user, password, host, port, database))
 }
 
 func NewMysql(db *gorm.DB) product.Repository {

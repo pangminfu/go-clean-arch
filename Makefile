@@ -1,7 +1,10 @@
-.PHONY: all test clean
+.PHONY: all test clean build
 
 run: 
 	@go run cmd/service/main.go
 
 test:
 	@go test ./... || exit 1
+
+build:
+	@docker build -f build/package/Dockerfile -t go-clean-arch .

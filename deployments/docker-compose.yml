@@ -30,6 +30,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     volumes:
       - database_mysql:/var/lib/mysql
+      - ../build/package/mysql/docker-entrypoint-initdb.d/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
     networks:
       - fullstack
   

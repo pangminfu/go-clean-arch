@@ -8,3 +8,6 @@ test:
 
 build:
 	@docker build -f build/package/go/Dockerfile -t go-clean-arch .
+
+run-local:
+	@go run cmd/service/main.go

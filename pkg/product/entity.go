@@ -9,7 +9,7 @@ type Product struct {
 	ID   int    `json:"id"`
 	Code string `json:"code"`
 	Name string `json:"name"`
-	Desc string `json:"desc"`
+	Desc string `json:"description" gorm:"column:description"`
 }
 
 func (p Product) IsCodeValid() error {

@@ -1,7 +1,7 @@
 .PHONY: all test clean build
 
 run: 
-	@go run cmd/service/main.go
+	@docker-compose -f deployments/docker-compose.yml up -d app mysql
 
 test:
 	@go test ./... || exit 1

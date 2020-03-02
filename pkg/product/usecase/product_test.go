@@ -47,6 +47,8 @@ func TestAdd(t *testing.T) {
 
 		result, err := uc.Add(testCase.product)
 
+		repo.AssertCalled(t, "Add", testCase.product)
+
 		assert.Equal(t, testCase.expectedErr, err)
 		assert.Equal(t, testCase.expectedRes, result)
 	}

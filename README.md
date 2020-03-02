@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/pangminfu/go-clean-arch/branch/master/graph/badge.svg)](https://codecov.io/gh/pangminfu/go-clean-arch)
 # Go Clean Architecture
 Example of how to write and clean and maintainable code in Go.
 

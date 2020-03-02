@@ -90,3 +90,44 @@ func TestProducts(t *testing.T) {
 		assert.Equal(t, testCase.expectedRes, result)
 	}
 }
+
+func TestSearch(t *testing.T) {
+	testCases := []struct {
+		name        string
+		code        string
+		repoRes     product.Product
+		repoErr     error
+		expectedRes product.Product
+		expectedErr error
+	}{
+		{
+			name:        "Given code retrieve product successfully",
+			code:        "TESTCODE11",
+			repoRes:     testdata.ProductValid,
+			repoErr:     nil,
+			expectedRes: testdata.ProductValid,
+			expectedErr: nil,
+		},
+		{
+			name:        "Given repo return error",
+			repoRes:     testdata.ProductZeroValue,
+			repoErr:     testdata.RepoErr,
+			expectedRes: testdata.ProductZeroValue,
+			expectedErr: testdata.RepoErr,
+		},
+	}
+
+	for _, testCase := range testCases {
+		repo := new(mocks.Repository)
+
+		repo.On("Search", testCase.code).
+			Return(testCase.repoRes, testCase.repoErr)
+
+		uc := usecase.New(repo)
+
+		result, err := uc.Search(testCase.code)
+
+		assert.Equal(t, testCase.expectedErr, err)
+		assert.Equal(t, testCase.expectedRes, result)
+	}
+}

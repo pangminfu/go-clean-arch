@@ -11,3 +11,6 @@ build:
 
 run-local:
 	@go run cmd/service/main.go
+
+coverage:
+	@sh ./test.sh

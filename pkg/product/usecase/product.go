@@ -42,7 +42,13 @@ func (uc *useCaseImpl) Search(code string) (product.Product, error) {
 }
 
 func (uc *useCaseImpl) Update(p product.Product) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	var product product.Product
+	product, err := uc.repo.Update(p)
+	if err != nil {
+		return product, err
+	}
+
+	return product, nil
 }
 
 func (uc *useCaseImpl) Delete(id int) error {

@@ -173,3 +173,38 @@ func TestUpdate(t *testing.T) {
 		assert.Equal(t, testCase.expectedRes, result)
 	}
 }
+
+func TestDelete(t *testing.T) {
+	testCases := []struct {
+		name        string
+		id          int
+		repoErr     error
+		expectedErr error
+	}{
+		{
+			name:        "Given valid product product detail",
+			id:          1,
+			repoErr:     nil,
+			expectedErr: nil,
+		},
+		{
+			name:        "Given repo return error",
+			id:          0,
+			repoErr:     testdata.RepoErr,
+			expectedErr: testdata.RepoErr,
+		},
+	}
+
+	for _, testCase := range testCases {
+		repo := new(mocks.Repository)
+
+		repo.On("Delete", testCase.id).
+			Return(testCase.repoErr)
+
+		uc := usecase.New(repo)
+
+		err := uc.Delete(testCase.id)
+
+		assert.Equal(t, testCase.expectedErr, err)
+	}
+}

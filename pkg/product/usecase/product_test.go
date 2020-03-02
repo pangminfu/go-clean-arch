@@ -102,7 +102,7 @@ func TestSearch(t *testing.T) {
 	}{
 		{
 			name:        "Given code retrieve product successfully",
-			code:        "TESTCODE11",
+			code:        "SG001",
 			repoRes:     testdata.ProductValid,
 			repoErr:     nil,
 			expectedRes: testdata.ProductValid,

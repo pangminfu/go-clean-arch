@@ -1,8 +1,6 @@
 package usecase
 
 import (
-	"errors"
-
 	"github.com/pangminfu/go-clean-arch/pkg/product"
 )
 
@@ -52,5 +50,5 @@ func (uc *useCaseImpl) Update(p product.Product) (product.Product, error) {
 }
 
 func (uc *useCaseImpl) Delete(id int) error {
-	return errors.New("no implementation")
+	return uc.repo.Delete(id)
 }

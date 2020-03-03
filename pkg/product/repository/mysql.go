@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/jinzhu/gorm"
@@ -47,7 +46,13 @@ func (r *MySQLRepository) Products() ([]product.Product, error) {
 	return products, nil
 }
 func (r *MySQLRepository) Search(code string) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	var product product.Product
+	err := r.db.Where("code = ?", code).First(&product).Error
+	if err != nil {
+		return product, err
+	}
+
+	return product, nil
 }
 func (r *MySQLRepository) Update(p product.Product) (product.Product, error) {
 	err := r.db.Save(&p).Error

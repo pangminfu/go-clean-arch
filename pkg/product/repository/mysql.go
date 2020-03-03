@@ -47,7 +47,7 @@ func (r *MySQLRepository) Products() ([]product.Product, error) {
 }
 func (r *MySQLRepository) Search(code string) (product.Product, error) {
 	var product product.Product
-	err := r.db.Where("code = ?", code).First(&product).Error
+	err := r.db.Table(ProductTable).Where("code = ?", code).First(&product).Error
 	if err != nil {
 		return product, err
 	}
@@ -55,7 +55,7 @@ func (r *MySQLRepository) Search(code string) (product.Product, error) {
 	return product, nil
 }
 func (r *MySQLRepository) Update(p product.Product) (product.Product, error) {
-	err := r.db.Save(&p).Error
+	err := r.db.Table(ProductTable).Save(&p).Error
 	if err != nil {
 		return p, err
 	}
@@ -63,5 +63,5 @@ func (r *MySQLRepository) Update(p product.Product) (product.Product, error) {
 	return p, nil
 }
 func (r *MySQLRepository) Delete(id int) error {
-	return r.db.Where("id = ?", id).Delete(&product.Product{}).Error
+	return r.db.Table(ProductTable).Where("id = ?", id).Delete(&product.Product{}).Error
 }

@@ -26,7 +26,10 @@ func NewMysql(db *gorm.DB) product.Repository {
 }
 
 func (r *MySQLRepository) Add(p product.Product) (product.Product, error) {
-	r.db.Table(TABLE_PRODUCT).Create(&p)
+	err := r.db.Table(TABLE_PRODUCT).Create(&p).Error
+	if err != nil {
+		return p, err
+	}
 
 	return p, nil
 }
@@ -44,8 +47,13 @@ func (r *MySQLRepository) Search(code string) (product.Product, error) {
 	return product.Product{}, errors.New("no implementation")
 }
 func (r *MySQLRepository) Update(p product.Product) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	err := r.db.Save(&p).Error
+	if err != nil {
+		return p, err
+	}
+
+	return p, nil
 }
 func (r *MySQLRepository) Delete(id int) error {
-	return errors.New("no implementation")
+	return r.db.Where("id = ?", id).Delete(&product.Product{}).Error
 }

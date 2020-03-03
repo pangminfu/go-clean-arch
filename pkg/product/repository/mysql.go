@@ -13,10 +13,13 @@ type MySQLRepository struct {
 	db *gorm.DB
 }
 
-const TABLE_PRODUCT = "product_tbl"
+const (
+	Dialect      = "mysql"
+	ProductTable = "product_tbl"
+)
 
 func ConnectMySQL(user, password, host, port, database string) (*gorm.DB, error) {
-	return gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?timeout=15s&parseTime=true", user, password, host, port, database))
+	return gorm.Open(Dialect, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?timeout=15s&parseTime=true", user, password, host, port, database))
 }
 
 func NewMysql(db *gorm.DB) product.Repository {
@@ -26,7 +29,7 @@ func NewMysql(db *gorm.DB) product.Repository {
 }
 
 func (r *MySQLRepository) Add(p product.Product) (product.Product, error) {
-	err := r.db.Table(TABLE_PRODUCT).Create(&p).Error
+	err := r.db.Table(ProductTable).Create(&p).Error
 	if err != nil {
 		return p, err
 	}
@@ -36,7 +39,7 @@ func (r *MySQLRepository) Add(p product.Product) (product.Product, error) {
 
 func (r *MySQLRepository) Products() ([]product.Product, error) {
 	products := make([]product.Product, 0)
-	err := r.db.Table(TABLE_PRODUCT).Find(&products).Error
+	err := r.db.Table(ProductTable).Find(&products).Error
 	if err != nil {
 		return nil, err
 	}

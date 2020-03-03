@@ -21,6 +21,9 @@ func Init() (*gin.Engine, error) {
 
 	r.POST("/product", ctrl.PostProduct)
 	r.GET("/products", ctrl.GetProducts)
+	r.GET("/product/:code", ctrl.SearchProduct)
+	r.PUT("/product/:id", ctrl.PutProduct)
+	r.DELETE("/product/:id", ctrl.DeleteProduct)
 
 	return r, nil
 }

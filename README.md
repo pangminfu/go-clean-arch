@@ -11,6 +11,7 @@ Example of how to write and clean and maintainable code in Go.
 3. Unit Test with mock (using [testify/mock](https://github.com/stretchr/testify) and [mockery](https://github.com/vektra/mockery))
 4. Go standard project layout (refer [here](https://github.com/golang-standards/project-layout))
 5. Github Actions
+6. Codecov
 
 # Overview (will be update to reflect new changes)
 

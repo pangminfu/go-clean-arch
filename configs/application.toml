@@ -1,7 +1,7 @@
 [Server]
     Port = ":8080"
 [Database]
-    Host = "127.0.0.1"
+    Host = "mysql"
     Username = "root"
     Password = "root"
     Port = "3306"

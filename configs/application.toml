@@ -1,8 +1,8 @@
 [Server]
-    Port = "8080"
+    Port = ":8080"
 [Database]
     Host = "127.0.0.1"
     Username = "root"
     Password = "root"
-    Port = "3360"
+    Port = "3306"
     DBName = "product_db"

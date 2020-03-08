@@ -5,12 +5,19 @@ import (
 	productctrl "github.com/pangminfu/go-clean-arch/internal/product"
 	"github.com/pangminfu/go-clean-arch/pkg/product/repository"
 	"github.com/pangminfu/go-clean-arch/pkg/product/usecase"
+	"github.com/spf13/viper"
 )
 
-func Init() (*gin.Engine, error) {
+func Init(cfg *viper.Viper) (*gin.Engine, error) {
 	r := gin.Default()
 
-	db, err := repository.ConnectMySQL("root", "root", "127.0.0.1", "3306", "product_db")
+	db, err := repository.ConnectMySQL(
+		cfg.GetString("Database.Username"),
+		cfg.GetString("Database.Password"),
+		cfg.GetString("Database.Host"),
+		cfg.GetString("Database.Port"),
+		cfg.GetString("Database.DBName"),
+	)
 	if err != nil {
 		return nil, err
 	}

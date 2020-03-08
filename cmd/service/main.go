@@ -4,16 +4,22 @@ import (
 	"log"
 
 	"github.com/pangminfu/go-clean-arch/internal/router"
+	"github.com/pangminfu/go-clean-arch/pkg/appcfg"
 	"github.com/pangminfu/go-clean-arch/pkg/server"
 )
 
 func main() {
-	router, err := router.Init()
+	config, err := appcfg.Load()
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
 
-	server := server.Init(":8080", router)
+	router, err := router.Init(config)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	server := server.Init(config.GetString("Server.Port"), router)
 
 	if err := server.Start(); err != nil {
 		log.Fatal(err)

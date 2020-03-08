@@ -1,0 +1,8 @@
+[Server]
+    Port = ":8080"
+[Database]
+    Host = "mysql"
+    Username = "root"
+    Password = "root"
+    Port = "3306"
+    DBName = "product_db"

@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/jinzhu/gorm"
@@ -13,10 +12,13 @@ type MySQLRepository struct {
 	db *gorm.DB
 }
 
-const TABLE_PRODUCT = "product_tbl"
+const (
+	Dialect      = "mysql"
+	ProductTable = "product_tbl"
+)
 
 func ConnectMySQL(user, password, host, port, database string) (*gorm.DB, error) {
-	return gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?timeout=15s&parseTime=true", user, password, host, port, database))
+	return gorm.Open(Dialect, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?timeout=15s&parseTime=true", user, password, host, port, database))
 }
 
 func NewMysql(db *gorm.DB) product.Repository {
@@ -26,14 +28,17 @@ func NewMysql(db *gorm.DB) product.Repository {
 }
 
 func (r *MySQLRepository) Add(p product.Product) (product.Product, error) {
-	r.db.Table(TABLE_PRODUCT).Create(&p)
+	err := r.db.Table(ProductTable).Create(&p).Error
+	if err != nil {
+		return p, err
+	}
 
 	return p, nil
 }
 
 func (r *MySQLRepository) Products() ([]product.Product, error) {
 	products := make([]product.Product, 0)
-	err := r.db.Table(TABLE_PRODUCT).Find(&products).Error
+	err := r.db.Table(ProductTable).Find(&products).Error
 	if err != nil {
 		return nil, err
 	}
@@ -41,11 +46,22 @@ func (r *MySQLRepository) Products() ([]product.Product, error) {
 	return products, nil
 }
 func (r *MySQLRepository) Search(code string) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	var product product.Product
+	err := r.db.Table(ProductTable).Where("code = ?", code).First(&product).Error
+	if err != nil {
+		return product, err
+	}
+
+	return product, nil
 }
 func (r *MySQLRepository) Update(p product.Product) (product.Product, error) {
-	return product.Product{}, errors.New("no implementation")
+	err := r.db.Table(ProductTable).Save(&p).Error
+	if err != nil {
+		return p, err
+	}
+
+	return p, nil
 }
 func (r *MySQLRepository) Delete(id int) error {
-	return errors.New("no implementation")
+	return r.db.Table(ProductTable).Where("id = ?", id).Delete(&product.Product{}).Error
 }

@@ -11,10 +11,11 @@ Example of how to write and clean and maintainable code in Go.
 3. Unit Test with mock (using [testify/mock](https://github.com/stretchr/testify) and [mockery](https://github.com/vektra/mockery))
 4. Go standard project layout (refer [here](https://github.com/golang-standards/project-layout))
 5. Github Actions
+6. Codecov
 
 # Overview (will be update to reflect new changes)
 
-![Image of Diagram](https://github.com/pangminfu/go-clean-arch/blob/master/overview.jpg)
+![Image of Diagram](https://github.com/pangminfu/go-clean-arch/blob/master/diagram.jpg)
 
 **Service** : This is where all our buisness logic and validation logic located. We can write unit test to cover this to make sure any changes to this will no break anything. Service shouldn't contain any SDK(eg. AWS, GCP or others) so that when we are migrate to other cloud service or database we don't need to make any changes to Service.
 

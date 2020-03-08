@@ -14,6 +14,7 @@ ADD . /go/src/app
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/bin/go-clean-arch ./cmd/service
 
 FROM gcr.io/distroless/base
+COPY --from=build-env /go/src/app/configs/ /configs/
 COPY --from=build-env /go/bin/go-clean-arch /
 
 EXPOSE 8080
